@@ -56,6 +56,7 @@ int main(void)
 	int time=0;
 	float r0,r1,r2,theta0,theta1,theta2;
 	float x0,y0,x1,y1,x2,y2,x,y;
+	float
 
 	CW0 cw0;
 	CCW0 ccw0;
@@ -93,10 +94,7 @@ int main(void)
     theta1=atan2(r1,115.0);
     theta2=atan2(r2,115.0);
 
-    if (theta0=0&&theta1=0&&theta2=0&&r0=0&&r1=0&&r2=0)
-    {
-    	x0=(r0+r1)
-    }
+   	x0=(-1)*(r0+r1)/(cos(M_PI/6)*2*tan(M_PI/6));
 
 
 	while (1)

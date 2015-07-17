@@ -18,9 +18,9 @@
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="main.cpp" partName="main.cpp" path="C:/Users/涼輔/Desktop/ichigoplus2.1/main.cpp" title="main.cpp" tooltip="C:/Users/涼輔/Desktop/ichigoplus2.1/main.cpp" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="main.cpp" partName="main.cpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/main.cpp" title="main.cpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/main.cpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/main.cpp"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1684" selectionTopPixel="1293"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1668" selectionTopPixel="1437"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="mini_md.cpp" partName="mini_md.cpp" path="C:/Users/涼輔/Desktop/ichigoplus2.1/layer_controller/mini_md.cpp" title="mini_md.cpp" tooltip="C:/Users/涼輔/Desktop/ichigoplus2.1/layer_controller/mini_md.cpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/layer_controller/mini_md.cpp"/>
@@ -255,9 +255,6 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_controller/mini_md.cpp"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/base/system.h"/>
 </editors>
-<item historyLabel="mini_md.c" index="2">
-<position info="not_deleted" x="717" y="0"/>
-</item>
 <item historyLabel="mini_md.h" index="1">
 <position info="not_deleted" x="632" y="0"/>
 </item>
@@ -400,8 +397,11 @@
 <item historyLabel="main.cpp" index="10">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item active="true" historyLabel="main.cpp" index="10">
+<item historyLabel="main.cpp" index="10">
 <position info="not_deleted" x="1684" y="0"/>
+</item>
+<item active="true" historyLabel="main.cpp" index="10">
+<position/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
