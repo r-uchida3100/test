@@ -53,10 +53,10 @@ int main(void)
 
 	}
     return 0;*/
-	int time=0;
+	int time=0,b=0;
 	float r0,r1,r2,theta0,theta1,theta2;
 	float x0,y0,x1,y1,x2,y2,x,y;
-	float
+	float a=M_PI/6,sin2=pow(sinf(a),2);
 
 	CW0 cw0;
 	CCW0 ccw0;
@@ -73,11 +73,12 @@ int main(void)
 	Enc0 enc0;enc0.setup();
 	Enc1 enc1;enc1.setup();
 	Enc2 enc2;enc2.setup();
+	Sw0 sw0;sw0.setupDigitalOut();
 	Serial0 serial;
 	serial.setup(115200);
 
 	moter0.setup();
-	moter0.duty(-1.0);
+	moter0.duty(0.0);
 	moter0.cycle();
 	moter1.setup();
 	moter1.duty(0.0);
@@ -86,29 +87,37 @@ int main(void)
 	moter2.duty(0.0);
 	moter2.cycle();
 
-    //機体の角度
-	r0=enc0.count()*40*M_PI/200;
-	r1=enc1.count()*40*M_PI/200;
-	r2=enc2.count()*40*M_PI/200;
-    theta0=atan2(r0,115.0);
-    theta1=atan2(r1,115.0);
-    theta2=atan2(r2,115.0);
-
-   	x0=(-1)*(r0+r1)/(cos(M_PI/6)*2*tan(M_PI/6));
-
-
-	while (1)
+   	while (1)
 	{
+   	    //機体の角度
+   		r0=enc0.count()*(40*M_PI/200);
+   		r1=enc1.count()*(40*M_PI/200);
+   		r2=enc2.count()*(40*M_PI/200);
+   	    theta0=atan2(r0,115.0);
+   	    theta1=atan2(r1,115.0);
+   	    theta2=atan2(r2,115.0);
+
+   	    //0番と1番のグラフの交点
+   	    x0=((r1-r0)*cosf(a))/(2*sin2);
+   	    y0=(b+a)/(2*sinf(a));
+   	    //0番と2番のグラフの交点
+   	    x1=(-1)*((r0+(r2*sinf(a)))*cosf(a))/sin2;
+   	    y1=(-1)*r2;
+   	    //1番と2番のグラフの交点
+   	    x2=(r1+(r2*sinf(a))*cosf(a))/sin2;
+   	    y2=(-1)*r2;
+
+   	    x=(x0+x1+x2)/3; //3つの交点の平均
+   	    y=(y0+y1+y2)/3;
 
 	    if (millis()-time>33)
 	    {
 	        time=millis();
-	        serial.printf("%d,%d,%d\n\r",enc0.count(),enc1.count(),enc2.count());
+	        serial.printf("%f,%f\n\r",x,y);
 	        wait (100);
-        }
+	    }
     }
-
-	return 0;
+return 0;
 }
 
 
