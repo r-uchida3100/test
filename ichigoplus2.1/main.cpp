@@ -56,6 +56,7 @@ int main(void)
 	int time=0,b=0;
 	float r0,r1,r2,theta0,theta1,theta2;
 	float x0,y0,x1,y1,x2,y2,x,y;
+	float c;
 	float a=M_PI/6,sin2=pow(sinf(a),2);
 
 	CW0 cw0;
@@ -78,10 +79,10 @@ int main(void)
 	serial.setup(115200);
 
 	moter0.setup();
-	moter0.duty(0.0);
+	moter0.duty(-1.0);
 	moter0.cycle();
 	moter1.setup();
-	moter1.duty(0.0);
+	moter1.duty(1.0);
 	moter1.cycle();
 	moter2.setup();
 	moter2.duty(0.0);
@@ -99,25 +100,30 @@ int main(void)
 
    	    //0番と1番のグラフの交点
    	    x0=((r1-r0)*cosf(a))/(2*sin2);
-   	    y0=(b+a)/(2*sinf(a));
+   	    y0=(r1+r0)/(2*sinf(a));
    	    //0番と2番のグラフの交点
    	    x1=(-1)*((r0+(r2*sinf(a)))*cosf(a))/sin2;
    	    y1=(-1)*r2;
    	    //1番と2番のグラフの交点
-   	    x2=(r1+(r2*sinf(a))*cosf(a))/sin2;
+   	    x2=(r1+(r2*sinf(a)))*cosf(a)/sin2;
    	    y2=(-1)*r2;
 
    	    x=(x0+x1+x2)/3; //3つの交点の平均
-   	    y=(y0+y1+y2)/3;
+        y=(y0+y1+y2)/3;
 
-	    if (millis()-time>33)
+        //(2000-走った距離)*0.0033333...
+
+        if (millis()-time>33)
 	    {
 	        time=millis();
-	        serial.printf("%f,%f\n\r",x,y);
+	        serial.printf("%f,%f,%f,%f,%f\n\r",x,y,r0,r1,r2);
 	        wait (100);
 	    }
     }
-return 0;
+    return 0;
 }
 
+void KKD()
+{
 
+}
