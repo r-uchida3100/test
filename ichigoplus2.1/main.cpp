@@ -54,7 +54,7 @@ int main(void)
 	}
     return 0;*/
 	int time=0,b=0;
-	float r0,r1,r2,theta0,theta1,theta2;
+	float r0,r1,r2,theta0,theta1,theta2,theta;
 	float x0,y0,x1,y1,x2,y2,x,y;
 	float c;
 	float a=M_PI/6,sin2=pow(sinf(a),2);
@@ -91,27 +91,27 @@ int main(void)
    	while (1)
 	{
    	    //機体の角度
-   		r0=enc0.count()*(40*M_PI/200);
-   		r1=enc1.count()*(40*M_PI/200);
-   		r2=enc2.count()*(40*M_PI/200);
-   	    theta0=atan2(r0,115.0);
-   	    theta1=atan2(r1,115.0);
+   	   	r0=enc0.count()*(40*M_PI/200);
+   	   	r1=enc1.count()*(40*M_PI/200);
+   	   	r2=enc2.count()*(40*M_PI/200);
+   	   	theta0=atan2(r0,115.0);
+   	   	theta1=atan2(r1,115.0);
    	    theta2=atan2(r2,115.0);
+   	    theta=(theta0+theta1+theta2)/3;
 
-   	    //0番と1番のグラフの交点
-   	    x0=((r1-r0)*cosf(a))/(2*sin2);
-   	    y0=(r1+r0)/(2*sinf(a));
-   	    //0番と2番のグラフの交点
-   	    x1=(-1)*((r0+(r2*sinf(a)))*cosf(a))/sin2;
-   	    y1=(-1)*r2;
-   	    //1番と2番のグラフの交点
+   	   	//0番と1番のグラフの交点
+   	   	x0=((r1-r0)*cosf(a))/(2*sin2);
+   	   	y0=(r1+r0)/(2*sinf(a));
+   	   	//0番と2番のグラフの交点
+   	   	x1=(-1)*((r0+(r2*sinf(a)))*cosf(a))/sin2;
+   	   	y1=(-1)*r2;
+   	   	//1番と2番のグラフの交点
    	    x2=(r1+(r2*sinf(a)))*cosf(a)/sin2;
-   	    y2=(-1)*r2;
+   	   	y2=(-1)*r2;
 
-   	    x=(x0+x1+x2)/3; //3つの交点の平均
-        y=(y0+y1+y2)/3;
-
-        //(2000-走った距離)*0.0033333...
+   	    //3つの交点の平均
+   	    x=(x0+x1+x2)/3;
+   	    y=(y0+y1+y2)/3;
 
         if (millis()-time>33)
 	    {
@@ -122,8 +122,4 @@ int main(void)
     }
     return 0;
 }
-
-void KKD()
-{
-
-}
+//(2000-走った距離)*0.0033333...
