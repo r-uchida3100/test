@@ -53,24 +53,23 @@ int main(void)
 
 	}
     return 0;*/
-	int time=0,b=0;
-	float r0,r1,r2,theta0,theta1,theta2,theta;
-	float x0,y0,x1,y1,x2,y2,x,y;
-	float c;
-	float a=M_PI/6,sin2=pow(sinf(a),2);
+	int time=0;
+	float distance0,distance1,distance2,theta0,theta1,theta2,theta;
+	float motor0X,motor0Y,motor1X,motor1Y,motor2X,motor2Y,machineX,machineY;
+	float sin2=pow(sinf(M_PI/6),2);
 
 	CW0 cw0;
 	CCW0 ccw0;
 	Pwm0 pwm0;
-	MiniMD moter1(cw0,ccw0,pwm0);
+	MiniMD motor1(cw0,ccw0,pwm0);
 	CW1 cw1;
 	CCW1 ccw1;
 	Pwm1 pwm1;
-	MiniMD moter0(cw1,ccw1,pwm1);
+	MiniMD motor0(cw1,ccw1,pwm1);
 	CW2 cw2;
 	CCW2 ccw2;
 	Pwm2 pwm2;
-	MiniMD moter2(cw2,ccw2,pwm2);
+	MiniMD motor2(cw2,ccw2,pwm2);
 	Enc0 enc0;enc0.setup();
 	Enc1 enc1;enc1.setup();
 	Enc2 enc2;enc2.setup();
@@ -78,46 +77,46 @@ int main(void)
 	Serial0 serial;
 	serial.setup(115200);
 
-	moter0.setup();
-	moter0.duty(-1.0);
-	moter0.cycle();
-	moter1.setup();
-	moter1.duty(1.0);
-	moter1.cycle();
-	moter2.setup();
-	moter2.duty(0.0);
-	moter2.cycle();
+	motor0.setup();
+	motor0.duty(-1.0);
+	motor0.cycle();
+	motor1.setup();
+	motor1.duty(1.0);
+	motor1.cycle();
+	motor2.setup();
+	motor2.duty(0.0);
+	motor2.cycle();
 
    	while (1)
 	{
    	    //機体の角度
-   	   	r0=enc0.count()*(40*M_PI/200);
-   	   	r1=enc1.count()*(40*M_PI/200);
-   	   	r2=enc2.count()*(40*M_PI/200);
-   	   	theta0=atan2(r0,115.0);
-   	   	theta1=atan2(r1,115.0);
-   	    theta2=atan2(r2,115.0);
+   	   	distance0=enc0.count()*(40*M_PI/200);
+   	   	distance1=enc1.count()*(40*M_PI/200);
+   	   	distance2=enc2.count()*(40*M_PI/200);
+   	   	theta0=atan2(distance0,90.0);
+   	   	theta1=atan2(distance1,90.0);
+   	    theta2=atan2(distance2,90.0);
    	    theta=(theta0+theta1+theta2)/3;
 
+   	    //自己位置もどき
    	   	//0番と1番のグラフの交点
-   	   	x0=((r1-r0)*cosf(a))/(2*sin2);
-   	   	y0=(r1+r0)/(2*sinf(a));
+   	   	motor0X=((distance1-distance0)*cosf(M_PI/6))/(2*sin2);
+   	   	motor0Y=(distance1+distance0)/(2*sinf(M_PI/6));
    	   	//0番と2番のグラフの交点
-   	   	x1=(-1)*((r0+(r2*sinf(a)))*cosf(a))/sin2;
-   	   	y1=(-1)*r2;
+   	   	motor1X=(-1)*((distance0+(distance2*sinf(M_PI/6)))*cosf(M_PI/6))/sin2;
+   	   	motor1Y=(-1)*distance2;
    	   	//1番と2番のグラフの交点
-   	    x2=(r1+(r2*sinf(a)))*cosf(a)/sin2;
-   	   	y2=(-1)*r2;
+   	    motor2X=(distance1+(distance2*sinf(M_PI/6)))*cosf(M_PI/6)/sin2;
+   	   	motor2Y=(-1)*distance2;
 
    	    //3つの交点の平均
-   	    x=(x0+x1+x2)/3;
-   	    y=(y0+y1+y2)/3;
+   	    machineX=(motor0X+motor1X+motor2X)/3;
+   	    machineY=(motor0Y+motor1Y+motor2Y)/3;
 
-        if (millis()-time>33)
+        if (millis()-time>10)
 	    {
 	        time=millis();
-	        serial.printf("%f,%f,%f,%f,%f\n\r",x,y,r0,r1,r2);
-	        wait (100);
+	        serial.printf("%f,%f,%f,%f,%f\n\r",machineX,machineY,distance0,distance1,distance2);
 	    }
     }
     return 0;
