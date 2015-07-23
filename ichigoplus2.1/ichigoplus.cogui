@@ -23,7 +23,7 @@
 </editorArea>
 <editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="main.cpp" partName="main.cpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/main.cpp" title="main.cpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/main.cpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/main.cpp"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2621" selectionTopPixel="1701"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="800" selectionTopPixel="810"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="mini_md.cpp" partName="mini_md.cpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/layer_controller/mini_md.cpp" title="mini_md.cpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/layer_controller/mini_md.cpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/layer_controller/mini_md.cpp"/>
@@ -43,7 +43,7 @@
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="pin.hpp" partName="pin.hpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/layer_driver/board/pin.hpp" title="pin.hpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/layer_driver/board/pin.hpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/layer_driver/board/pin.hpp"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="2160"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="util.hpp" partName="util.hpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/layer_driver/base/util.hpp" title="util.hpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.1/layer_driver/base/util.hpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/layer_driver/base/util.hpp"/>
@@ -261,163 +261,162 @@
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/main.cpp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/cmsis_boot/startup/startup_stm32f4xx.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_controller/mini_md.cpp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_controller/mini_md.hpp"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/base/system.h"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_controller/mini_md.hpp"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_controller/mini_md.cpp"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_controller/mini_md.cpp"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_controller/mini_md.hpp"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/base/util.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/base/util.hpp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/board/pin.cpp"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/board/pin.hpp"/>
 </editors>
 <item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1893" y="0"/>
+<position info="not_deleted" x="810" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="2672" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="2508" y="47"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="808" y="41"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="777" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="341" y="32"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1917" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="2753" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="663" y="65"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="220" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="663" y="65"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1904" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="663" y="65"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="655" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="726" y="0"/>
+</item>
+<item historyLabel="startup_stm32f4xx.c" index="1">
+<position info="not_deleted" x="15688" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1899" y="0"/>
+</item>
+<item historyLabel="startup_stm32f4xx.c" index="1">
+<position info="not_deleted" x="15753" y="11"/>
 </item>
 <item historyLabel="main.cpp" index="0">
 <position info="not_deleted" x="1899" y="0"/>
 </item>
 <item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1988" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1806" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1837" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1907" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1913" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1987" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2002" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2138" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1865" y="51"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1961" y="44"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2138" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2126" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1401" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2130" y="31"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2126" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="881" y="42"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2192" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="912" y="11"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2273" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2295" y="0"/>
+<position info="not_deleted" x="2107" y="0"/>
 </item>
 <item historyLabel="main.cpp" index="0">
 <position/>
 </item>
-<item historyLabel="system.h" index="1">
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1894" y="13"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="655" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1894" y="13"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="655" y="2"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1894" y="13"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="655" y="2"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1894" y="13"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1890" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="2580" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="3151" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="2582" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1513" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1877" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="1683" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="2584" y="18"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="342" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="2528" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="617" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="344" y="13"/>
+</item>
+<item historyLabel="mini_md.cpp" index="2">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="mini_md.hpp" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="system.h" index="4">
 <position info="not_deleted" x="143" y="0"/>
 </item>
-<item historyLabel="mini_md.hpp" index="2">
+<item historyLabel="pin.cpp" index="5">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="mini_md.cpp" index="3">
+<item historyLabel="pin.hpp" index="6">
 <position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2329" y="0"/>
-</item>
-<item historyLabel="mini_md.hpp" index="2">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="mini_md.cpp" index="3">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1856" y="0"/>
-</item>
-<item historyLabel="mini_md.cpp" index="3">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1856" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2337" y="0"/>
-</item>
-<item historyLabel="mini_md.cpp" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1836" y="0"/>
-</item>
-<item historyLabel="mini_md.cpp" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="mini_md.hpp" index="5">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1902" y="0"/>
-</item>
-<item historyLabel="util.c" index="6">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="util.hpp" index="7">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1902" y="0"/>
-</item>
-<item historyLabel="util.hpp" index="7">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1902" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1833" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2073" y="80"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2313" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2498" y="95"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2400" y="0"/>
 </item>
 <item active="true" historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="2498" y="95"/>
+<position info="not_deleted" x="381" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -426,6 +425,9 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="startup_stm32f4xx.c" tooltip="ichigoplus/cmsis_boot/startup/startup_stm32f4xx.c">
+<persistable path="/ichigoplus/cmsis_boot/startup/startup_stm32f4xx.c"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="util.hpp" tooltip="ichigoplus/layer_driver/base/util.hpp">
 <persistable path="/ichigoplus/layer_driver/base/util.hpp"/>
 </file>
@@ -467,9 +469,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="blink.hpp" tooltip="ichigoplus/layer_controller/blink.hpp">
 <persistable path="/ichigoplus/layer_controller/blink.hpp"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="blink.cpp" tooltip="ichigoplus/layer_controller/blink.cpp">
-<persistable path="/ichigoplus/layer_controller/blink.cpp"/>
 </file>
 </mruList>
 </workbench>
