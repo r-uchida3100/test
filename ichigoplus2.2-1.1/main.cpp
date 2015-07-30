@@ -13,8 +13,8 @@
 
 //circuit
 #include "layer_driver/circuit/can_encoder.hpp"
-
 #include "layer_driver/circuit/mini_md.hpp"
+
 #include "math.h"
 
 /*Led0 led;
@@ -142,7 +142,11 @@ int main()
 	serial.setup(115200);
 
 	int time=0;
-	float encoderMAX=200,diameter=40;//encoderMAX=モーター一周のエンコーダーの値,diameter=タイヤの直径
+	float encoderMAX=200;//encoderMAX=モーター一周のエンコーダーの値
+	float diameter=40;//diameter=タイヤの直径
+	float long0=115;//タイヤ０から車体の中心までの距離
+	float long1=115;//タイヤ１から車体の中心までの距離
+	float long2=115;//タイヤ２から車体の中心までの距離
 	float distance0=0;
 	float distance1=0;
 	float distance2=0;
@@ -154,6 +158,7 @@ int main()
 	float motor2Y=0;
 	float machineX=0;
 	float machineY=0;
+	float theta0,theta1,theta2,theta;
 
 	/*A2 led;
 	led.setupDigitalOut();
@@ -186,12 +191,16 @@ int main()
 		pin.digitalRead();
 		}
     return 0;*/
-	//float theta0,theta1,theta2,theta;
 	while (1)
 	{
 	   	distance0=enc0.count()*(diameter*M_PI/encoderMAX);
 	   	distance1=enc1.count()*(diameter*M_PI/encoderMAX);
 	   	distance2=enc2.count()*(diameter*M_PI/encoderMAX);
+	    //車体の角度
+	   	theta0=atan2(distance0,long0);
+	   	theta1=atan2(distance1,long1);
+	   	theta2=atan2(distance2,long2);
+	   	theta=(theta0+theta1+theta2)/3;
 	   	//自己位置
 	   	//0番と1番のグラフの交点
 	   	motor0X=(distance1-distance0)/(2*sin(M_PI/3));
@@ -205,6 +214,14 @@ int main()
    		//3つの交点の平均
    		machineX=(motor0X+motor1X+motor2X)/3;
    		machineY=(motor0Y+motor1Y+motor2Y)/3;
+
+   		if (theta!=0)
+   			{
+   				if (theta<0)
+   				{
+   					machineX=machineX*cos(theta);
+   				}
+   			}
    		if (millis()-time>20)
    			{
    				time=millis();
