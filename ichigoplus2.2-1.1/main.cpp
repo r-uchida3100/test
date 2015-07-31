@@ -107,6 +107,15 @@ void statement::speak(){
 	}
 	return;
 }*/
+/*float motorPDprogram(float current,float command,float Pgain,float Dgain)
+{
+	float output=0.00;
+	float deviation=0.00;
+	static float olddiviation=0.00;
+
+	deviation=
+
+}*/
 
 int main()
 {
@@ -128,13 +137,13 @@ int main()
 	MiniMD motor2(cw2,ccw2,pwm2);
 
 	motor0.setup();
-	motor0.duty(-1.0);
 	motor0.cycle();
+	//motor0.duty(0.0);
 	motor1.setup();
-	motor1.duty(1.0);
+	//motor1.duty(0.0);
 	motor1.cycle();
 	motor2.setup();
-	motor2.duty(0.0);
+	//motor2.duty(0.0);
 	motor2.cycle();
 	enc0.setup();
 	enc1.setup();
@@ -215,18 +224,16 @@ int main()
    		machineX=(motor0X+motor1X+motor2X)/3;
    		machineY=(motor0Y+motor1Y+motor2Y)/3;
 
-   		if (theta!=0)
-   			{
-   				if (theta<0)
-   				{
-   					machineX=machineX*cos(theta);
-   				}
-   			}
+   		if (theta++)
+   		{
+
+   		}
+
    		if (millis()-time>20)
-   			{
-   				time=millis();
-   				serial.printf("%f,%f %f %f %f\n\r",machineX,machineY,distance0,distance1,distance2);
-            }
+   		{
+   		    time=millis();
+   			serial.printf("%f,%f %f\n\r",machineX,machineY,theta);
+        }
      }
 return 0;
 }
