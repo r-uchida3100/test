@@ -119,6 +119,7 @@ void statement::speak(){
 
 int main()
 {
+	//CanEncoder ce;ce.setup();
 	CW0 cw0;
 	CCW0 ccw0;
 	Pwm0 pwm0;
@@ -137,13 +138,13 @@ int main()
 	MiniMD motor2(cw2,ccw2,pwm2);
 
 	motor0.setup();
+	motor0.duty(0.0);
 	motor0.cycle();
-	//motor0.duty(0.0);
 	motor1.setup();
-	//motor1.duty(0.0);
+	motor1.duty(0.0);
 	motor1.cycle();
 	motor2.setup();
-	//motor2.duty(0.0);
+	motor2.duty(0.0);
 	motor2.cycle();
 	enc0.setup();
 	enc1.setup();
@@ -168,6 +169,7 @@ int main()
 	float machineX=0;
 	float machineY=0;
 	float theta0,theta1,theta2,theta;
+	float i,j;
 
 	/*A2 led;
 	led.setupDigitalOut();
@@ -223,12 +225,21 @@ int main()
    		//3‚Â‚ÌŒð“_‚Ì•½‹Ï
    		machineX=(motor0X+motor1X+motor2X)/3;
    		machineY=(motor0Y+motor1Y+motor2Y)/3;
+   		//X,YÀ•WŽ²‚ðŒÅ’è
+   		machineX=machineX*cos(theta);
+   		machineY=machineY*sin(theta);
 
-   		if (theta++)
+   		if (machineX>=1500)
    		{
-
+   			i=2000-machineX;
+   			j=i*0.002;
+   			if (j>=1)
+   			{
+   				j=1;
+   				motor0.duty(j);
+   				motor1.duty(-j);
+   			}
    		}
-
    		if (millis()-time>20)
    		{
    		    time=millis();
