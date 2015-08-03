@@ -15,6 +15,8 @@
 #include "layer_driver/circuit/can_encoder.hpp"
 #include "layer_driver/circuit/mini_md.hpp"
 
+//driver
+#include "layer_driver/base/can.hpp"
 #include "math.h"
 
 /*Led0 led;
@@ -119,7 +121,10 @@ void statement::speak(){
 
 int main()
 {
-	//CanEncoder ce;ce.setup();
+	Can0 can;
+	CanEncoder enc0(can,0,5);
+	CanEncoder enc1(can,1,5);
+	CanEncoder enc2(can,2,5);
 	CW0 cw0;
 	CCW0 ccw0;
 	Pwm0 pwm0;
@@ -129,9 +134,6 @@ int main()
 	CW2 cw2;
 	CCW2 ccw2;
 	Pwm2 pwm2;
-	Enc0 enc0;
-	Enc1 enc1;
-	Enc2 enc2;
 	Serial0 serial;
 	MiniMD motor0(cw0,ccw0,pwm0);
 	MiniMD motor1(cw1,ccw1,pwm1);
@@ -214,14 +216,14 @@ int main()
 	   	theta=(theta0+theta1+theta2)/3;
 	   	//自己位置
 	   	//0番と1番のグラフの交点
-	   	motor0X=(distance1-distance0)/(2*sin(M_PI/3));
-	   	motor0Y=(distance1+distance0)/(2*cos(M_PI/3));
+	   	motor0X=(distance0-distance1)/(2*sin(M_PI/3));
+	   	motor0Y=(distance0-3*distance1)/(2*cos(M_PI/3));
 	   	//0番と2番のグラフの交点
 	   	motor1X=(-1)*(distance0+(distance2*cos(M_PI/3)))/sin(M_PI/3);
-	   	motor1Y=(-1)*distance2;
+	   	motor1Y=distance2;
 	   	//1番と2番のグラフの交点
 	   	motor2X=(distance1+(distance2*cos(M_PI/3)))/sin(M_PI/3);
-	   	motor2Y=(-1)*distance2;
+	   	motor2Y=distance2;
    		//3つの交点の平均
    		machineX=(motor0X+motor1X+motor2X)/3;
    		machineY=(motor0Y+motor1Y+motor2Y)/3;

@@ -33,7 +33,7 @@
 </editorArea>
 <editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="main.cpp" partName="main.cpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/main.cpp" title="main.cpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/main.cpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/main.cpp"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2553" selectionTopPixel="2014"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3807" selectionTopPixel="3376"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="pin.hpp" partName="pin.hpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/layer_driver/board/pin.hpp" title="pin.hpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/layer_driver/board/pin.hpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/layer_driver/board/pin.hpp"/>
@@ -73,7 +73,7 @@
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="mini_md.hpp" partName="mini_md.hpp" title="mini_md.hpp" tooltip="C:\Users\涼輔\Documents\test(1)\ichigoplus2.2-1.1\layer_controller\mini_md.hpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.cdt.ui.ExternalEditorInputFactory" path="C:\Users\涼輔\Documents\test(1)\ichigoplus2.2-1.1\layer_controller\mini_md.hpp" project="ichigoplus"/>
-<editorState selectionHorizontalPixel="0" selectionLength="5" selectionOffset="534" selectionTopPixel="210"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="536" selectionTopPixel="153"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="can_encoder.hpp" partName="can_encoder.hpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/layer_driver/circuit/can_encoder.hpp" title="can_encoder.hpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/layer_driver/circuit/can_encoder.hpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/layer_driver/circuit/can_encoder.hpp"/>
@@ -82,12 +82,16 @@
 </editors>
 <views>
 <view id="org.coocox.builder.ui.views.ProjectView" partName="Project">
-<viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="0">
+<viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="3">
 <expanded>
 <element path="/ichigoplus"/>
 <element path="/ichigoplus/layer_controller"/>
 <element path="/ichigoplus/layer_driver"/>
+<element path="/ichigoplus/layer_driver/base"/>
 </expanded>
+<selection>
+<element path="/ichigoplus/layer_driver/base"/>
+</selection>
 </viewState>
 </view>
 <view id="org.coocox.component.ui.ComponentView" partName="Components">
@@ -185,28 +189,11 @@
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/main.cpp"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/main.h"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/main.h"/>
 <editor factoryID="org.eclipse.cdt.ui.ExternalEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="C:\Users\涼輔\Documents\test(1)\ichigoplus2.2-1.1\layer_controller\mini_md.hpp" project="ichigoplus"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/circuit/can_encoder.hpp"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/base/utilplus.cpp"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/base/serial.hpp"/>
 </editors>
-<item historyLabel="main.h" index="1">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="main.h" index="2">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1952" y="0"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="1654" y="25"/>
-</item>
-<item historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="4186" y="0"/>
-</item>
 <item historyLabel="main.cpp" index="0">
 <position info="not_deleted" x="3181" y="0"/>
 </item>
@@ -246,10 +233,10 @@
 <item historyLabel="main.cpp" index="0">
 <position/>
 </item>
-<item historyLabel="mini_md.hpp" index="3">
+<item historyLabel="mini_md.hpp" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="mini_md.hpp" index="3">
+<item historyLabel="mini_md.hpp" index="1">
 <position info="not_deleted" x="536" y="0"/>
 </item>
 <item historyLabel="main.cpp" index="0">
@@ -258,16 +245,16 @@
 <item historyLabel="main.cpp" index="0">
 <position info="not_deleted" x="213" y="0"/>
 </item>
-<item historyLabel="can_encoder.hpp" index="4">
+<item historyLabel="can_encoder.hpp" index="2">
 <position info="not_deleted" x="0" y="0"/>
 </item>
 <item historyLabel="main.cpp" index="0">
 <position info="not_deleted" x="213" y="0"/>
 </item>
-<item historyLabel="utilplus.cpp" index="5">
+<item historyLabel="utilplus.cpp" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="can_encoder.hpp" index="4">
+<item historyLabel="can_encoder.hpp" index="2">
 <position info="not_deleted" x="0" y="0"/>
 </item>
 <item historyLabel="main.cpp" index="0">
@@ -279,7 +266,7 @@
 <item historyLabel="main.cpp" index="0">
 <position/>
 </item>
-<item historyLabel="serial.hpp" index="6">
+<item historyLabel="serial.hpp" index="4">
 <position info="not_deleted" x="3618" y="0"/>
 </item>
 <item historyLabel="main.cpp" index="0">
@@ -339,8 +326,23 @@
 <item historyLabel="main.cpp" index="0">
 <position info="not_deleted" x="4780" y="1"/>
 </item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="4759" y="0"/>
+</item>
+<item historyLabel="mini_md.hpp" index="1">
+<position info="not_deleted" x="536" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="4759" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="2328" y="0"/>
+</item>
+<item historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="2743" y="0"/>
+</item>
 <item active="true" historyLabel="main.cpp" index="0">
-<position info="not_deleted" x="4772" y="0"/>
+<position info="not_deleted" x="2328" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -349,6 +351,12 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.h" tooltip="ichigoplus/layer_driver/main.h">
+<persistable path="/ichigoplus/layer_driver/main.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.h" tooltip="ichigoplus/main.h">
+<persistable path="/ichigoplus/main.h"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="can_encoder.hpp" tooltip="ichigoplus/layer_driver/circuit/can_encoder.hpp">
 <persistable path="/ichigoplus/layer_driver/circuit/can_encoder.hpp"/>
 </file>
@@ -387,12 +395,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.cpp" tooltip="ichigoplus/main.cpp">
 <persistable path="/ichigoplus/main.cpp"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="mini_md.c" tooltip="ichigoplus/layer_controller/mini_md.c">
-<persistable path="/ichigoplus/layer_controller/mini_md.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="mini_md.h" tooltip="ichigoplus/layer_controller/mini_md.h">
-<persistable path="/ichigoplus/layer_controller/mini_md.h"/>
 </file>
 </mruList>
 </workbench>
