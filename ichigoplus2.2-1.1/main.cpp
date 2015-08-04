@@ -61,8 +61,7 @@ class statement{
 };
 
 void statement::position(){
-	float encoderMAX=200,diameter=40;//encoderMAX=���[�^�[����̃G���R�[�_�[�̒l,diameter=�^�C���̒��a
-	enc0.setup();
+	float encoderMAX=200,diameter=40;//encoderMAX=繝｢繝ｼ繧ｿ繝ｼ荳�捉縺ｮ繧ｨ繝ｳ繧ｳ繝ｼ繝��縺ｮ蛟､,diameter=繧ｿ繧､繝､縺ｮ逶ｴ蠕�	enc0.setup();
 	enc1.setup();
 	enc2.setup();
 	while (1)
@@ -70,19 +69,18 @@ void statement::position(){
 		distance0=enc0.count()*(diameter*M_PI/encoderMAX);
 	    distance1=enc1.count()*(diameter*M_PI/encoderMAX);
    	    distance2=enc2.count()*(diameter*M_PI/encoderMAX);
-   	    //���Ȉʒu
-   	    //0�Ԃ�1�Ԃ̃O���t�̌�_
+   	    //閾ｪ蟾ｱ菴咲ｽｮ
+   	    //0逡ｪ縺ｨ1逡ｪ縺ｮ繧ｰ繝ｩ繝輔�莠､轤ｹ
   	    motor0X=(distance1-distance0)/(2*sin(M_PI/3));
    	    motor0Y=(distance1+distance0)/(2*cos(M_PI/3));
-   	    //0�Ԃ�2�Ԃ̃O���t�̌�_
+   	    //0逡ｪ縺ｨ2逡ｪ縺ｮ繧ｰ繝ｩ繝輔�莠､轤ｹ
    	    motor1X=(-1)*(distance0+(distance2*cos(M_PI/3)))/sin(M_PI/3);
    	    motor1Y=(-1)*distance2;
-   	    //1�Ԃ�2�Ԃ̃O���t�̌�_
+   	    //1逡ｪ縺ｨ2逡ｪ縺ｮ繧ｰ繝ｩ繝輔�莠､轤ｹ
    	    motor2X=(distance1+(distance2*cos(M_PI/3)))/sin(M_PI/3);
    	    motor2Y=(-1)*distance2;
 
-   	    //3�̌�_�̕���
-   	    machineX=(motor0X+motor1X+motor2X)/3;
+   	    //3縺､縺ｮ莠､轤ｹ縺ｮ蟷ｳ蝮�   	    machineX=(motor0X+motor1X+motor2X)/3;
    	    machineY=(motor0Y+motor1Y+motor2Y)/3;
 	}
 return;
@@ -154,11 +152,12 @@ int main()
 	serial.setup(115200);
 
 	int time=0;
-	float encoderMAX=200;//encoderMAX=���[�^�[����̃G���R�[�_�[�̒l
-	float diameter=40;//diameter=�^�C���̒��a
-	float long0=115;//�^�C���O����ԑ̂̒��S�܂ł̋���
-	float long1=115;//�^�C���P����ԑ̂̒��S�܂ł̋���
-	float long2=115;//�^�C���Q����ԑ̂̒��S�܂ł̋���
+	float encoderMAX1=200;//encoderMAX1=モーター①②の一周のエンコーダーカウント
+	float encoderMAX2=1000;//encoderMAX2=モーター⓪の一周のエンコーダーカウント
+	float diameter=30;//diameter=繧ｿ繧､繝､縺ｮ逶ｴ蠕�
+	float long0=115;//繧ｿ繧､繝､�舌°繧芽ｻ贋ｽ薙�荳ｭ蠢�∪縺ｧ縺ｮ霍晞屬
+	float long1=115;//繧ｿ繧､繝､�代°繧芽ｻ贋ｽ薙�荳ｭ蠢�∪縺ｧ縺ｮ霍晞屬
+	float long2=115;//繧ｿ繧､繝､�偵°繧芽ｻ贋ｽ薙�荳ｭ蠢�∪縺ｧ縺ｮ霍晞屬
 	float distance0=0;
 	float distance1=0;
 	float distance2=0;
@@ -206,29 +205,27 @@ int main()
     return 0;*/
 	while (1)
 	{
-	   	distance0=enc0.count()*(diameter*M_PI/encoderMAX);
-	   	distance1=enc1.count()*(diameter*M_PI/encoderMAX);
-	   	distance2=enc2.count()*(diameter*M_PI/encoderMAX);
-	    //�ԑ̂̊p�x
+	   	distance0=enc0.count()*(diameter*M_PI/encoderMAX2);
+	   	distance1=enc1.count()*(diameter*M_PI/encoderMAX1);
+	   	distance2=enc2.count()*(diameter*M_PI/encoderMAX1);
+	    //霆贋ｽ薙�隗貞ｺｦ
 	   	theta0=atan2(distance0,long0);
 	   	theta1=atan2(distance1,long1);
 	   	theta2=atan2(distance2,long2);
 	   	theta=(theta0+theta1+theta2)/3;
-	   	//���Ȉʒu
-	   	//0�Ԃ�1�Ԃ̃O���t�̌�_
+	   	//閾ｪ蟾ｱ菴咲ｽｮ
+	   	//0逡ｪ縺ｨ1逡ｪ縺ｮ繧ｰ繝ｩ繝輔�莠､轤ｹ
 	   	motor0X=(distance0-distance1)/(2*sin(M_PI/3));
-	   	motor0Y=(distance0-3*distance1)/(2*cos(M_PI/3));
-	   	//0�Ԃ�2�Ԃ̃O���t�̌�_
-	   	motor1X=(-1)*(distance0+(distance2*cos(M_PI/3)))/sin(M_PI/3);
-	   	motor1Y=distance2;
-	   	//1�Ԃ�2�Ԃ̃O���t�̌�_
-	   	motor2X=(distance1+(distance2*cos(M_PI/3)))/sin(M_PI/3);
-	   	motor2Y=distance2;
-   		//3�̌�_�̕���
-   		machineX=(motor0X+motor1X+motor2X)/3;
+	   	motor0Y=(distance0+distance1)/(2*cos(M_PI/3));
+	   	//0逡ｪ縺ｨ2逡ｪ縺ｮ繧ｰ繝ｩ繝輔�莠､轤ｹ
+	   	motor1X=(distance0+(distance2*cos(M_PI/3)))/sin(M_PI/3);
+	   	motor1Y=(-1)*distance2;
+	   	//1逡ｪ縺ｨ2逡ｪ縺ｮ繧ｰ繝ｩ繝輔�莠､轤ｹ
+	   	motor2X=(-1)*(distance1+(distance2*cos(M_PI/3)))/sin(M_PI/3);
+	   	motor2Y=(-1)*distance2;
+   		//3縺､縺ｮ莠､轤ｹ縺ｮ蟷ｳ蝮�   		machineX=(motor0X+motor1X+motor2X)/3;
    		machineY=(motor0Y+motor1Y+motor2Y)/3;
-   		//X,Y���W�����Œ�
-   		machineX=machineX*cos(theta);
+   		//X,Y蠎ｧ讓呵ｻｸ繧貞崋螳�   		machineX=machineX*cos(theta);
    		machineY=machineY*sin(theta);
 
    		if (machineX>=1500)
@@ -250,4 +247,4 @@ int main()
      }
 return 0;
 }
-//(2000-����������)*0.0033333...
+//(2000-襍ｰ縺｣縺溯ｷ晞屬)*0.0033333...
