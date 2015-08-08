@@ -40,7 +40,8 @@ int CanEncoder::count(){
 		canWrite(id,0,data);
 		while(lastTime==lastGetTimeData);
 	}
-	return encValue;
+	if(revFlag)return -encValue;
+	else return encValue;
 }
 
 long CanEncoder::lastReadTime(){
