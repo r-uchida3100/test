@@ -64,15 +64,14 @@ public:
 	float machiney2=0;
 	float machinex=0;
 	float machiney=0;
-	float machinexdash;
-	float machineydash;
-	float machineX;
-	float machineY;
-	float a;
+	float machinexdash=0;
+	float machineydash=0;
+	float machineX=0;
+	float machineY=0;
+	float a=0;
 	float theta0=0,theta1=0,theta2=0,theta=0;
 	float last0=0,last1=0,last2=0;
 
-	Can0 can;
 	Serial0 serial;
 	Enc0 enc0;
 	Enc1 enc1;
@@ -86,13 +85,12 @@ public:
 	CW2 cw2;
 	CCW2 ccw2;
 	Pwm2 pwm2;
+	void position();
+	void print();
 };
 
-void declaration::declaration()
+declaration::declaration2()
 {
-	CanEncoder canenc0(can , 0 , 5);canenc0.setup();
-	CanEncoder canenc1(can , 1 , 5);canenc1.setup();
-	CanEncoder canenc2(can , 2 , 5);canenc2.setup();
 	MiniMD motor0(cw0,ccw0,pwm0);
 	MiniMD motor1(cw1,ccw1,pwm1);
 	MiniMD motor2(cw2,ccw2,pwm2);
@@ -112,11 +110,30 @@ void declaration::declaration()
 	serial.setup(115200);
 }
 
+class EncoderUser{
+public:
+	EncoderUser(Encoder &enc_0,Encoder &enc_1,Encoder &enc_2){
+		enc0=&enc_0;
+		enc1=&enc_1;
+		enc2=&enc_2;
+	}
+	int setup(){
+		int i=0;
+		i+=(enc0->setup()!=0);
+		i+=(enc1->setup()!=0);
+		i+=(enc2->setup()!=0);
+	}
+private:
+	Encoder *enc0;
+	Encoder *enc1;
+	Encoder *enc2;
+};
+
 void declaration::position()
 {
-	distance0=canenc0.count()*(diameter*M_PI/encoderMAX2)-last0;
-	distance1=canenc1.count()*(diameter*M_PI/encoderMAX1)-last1;
-	distance2=canenc2.count()*(diameter*M_PI/encoderMAX1)-last2;
+	distance0=enc0.count()*(diameter*M_PI/encoderMAX2)-last0;
+	distance1=enc1.count()*(diameter*M_PI/encoderMAX1)-last1;
+	distance2=enc2.count()*(diameter*M_PI/encoderMAX1)-last2;
 	last0=canenc0.count()*(diameter*M_PI/encoderMAX2);
 	last1=canenc1.count()*(diameter*M_PI/encoderMAX1);
 	last2=canenc2.count()*(diameter*M_PI/encoderMAX1);
@@ -126,26 +143,35 @@ void declaration::position()
 	theta2=atan2(distance2,long2);
 	theta=(theta0+theta1+theta2)/3;
 
-	motor0X=(distance0-distance1)/(2*sin(M_PI/3));
-	motor0Y=(distance0+distance1)/(2*cos(M_PI/3));
+	motor0X=(distance1-distance0)/(2*sin(M_PI/3));
+	motor0Y=(-1)*(distance1+distance0)/(2*cos(M_PI/3));
 
-	motor1X=(distance0+(distance2*cos(M_PI/3)))/sin(M_PI/3);
-	motor1Y=(-1)*distance2;
+	motor1X=(-1)*(distance0+(distance2*cos(M_PI/3)))/sin(M_PI/3);
+	motor1Y=distance2;
 
-	motor2X=(-1)*(distance1+(ditance2*cos(M_PI/3)))/sin(M_PI/3);
-	motor2Y=(-1)*distance2;
+	motor2X=(distance1+(ditance2*cos(M_PI/3)))/sin(M_PI/3);
+	motor2Y=distance2;
 
 	machineX1=(motor0X+motor1X+motor2X)/3;//上記の3線のx座標の合計
 	machineY1=(motor0Y+motor1Y+motor2Y)/3;//上記の3線のy座標の合計
 
-	machineX+=machineX1*cos(theta)-machineY1*sin(theta);//5ミリ秒後の座標xと現在のx座標と足す
-	machineY+=machineX1*sin(theta)+machineY1*cos(theta);//5ミリ秒後の座標yと現在のy座標を足す
+	*machineX+=machineX1*cos(theta)-machineY1*sin(theta);//5ミリ秒後の座標xと現在のx座標と足す
+	*machineY+=machineX1*sin(theta)+machineY1*cos(theta);//5ミリ秒後の座標yと現在のy座標を足す
+}
+
+void declaration::print()
+{
+	if (millis()-time>50)
+	 	{
+	 	    time=millis();
+	 		//serial.printf("%d %d %d\n\r",canenc0.count(),canenc1.count(),canenc2.count());
+	 		serial.printf("%f %f\n\r",machineX,machineY);
+	    }
 }
 
 int main()
 {
-
-
+	declaration declaration1;
 	//float i,j;
 
 	/*A2 led;
@@ -179,11 +205,15 @@ int main()
 		pin.digitalRead();
 		}
     return 0;*/
+	Can0 can;
+	CanEncoder enc0(can , 0 , 5);
+	CanEncoder enc1(can , 1 , 5);
+	CanEncoder enc2(can , 2 , 5);
+
+	EncoderUser enc(enc0,enc1,enc2);
+	enc.setup();
 	while (1)
 	{
-
-
-
    		/*if (machineX>=1500)
    		{
    			i=2000-machineX;
@@ -195,12 +225,7 @@ int main()
    				motor1.duty(-j);
    			}
    		}*/
-   		if (millis()-time>50)
-   		{
-   		    time=millis();
-   			//serial.printf("%d %d %d\n\r",canenc0.count(),canenc1.count(),canenc2.count());
-   			serial.printf("%f %f\n\r",machineX,machineY);
-        }
+   		declaration1.print();
      }
 return 0;
 }
