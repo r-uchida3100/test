@@ -40,13 +40,13 @@ return 0;*/
 class declaration
 {
 public:
-	int time=0;
-	float encoderMAX1=200;
-	float encoderMAX2=1000;
-	float diameter=30;
-	float long0=115;
-	float long1=115;
-	float long2=115;
+	int time;
+	float encoderMAX1=0;
+	float encoderMAX2=0;
+	float diameter=0;
+	float long0=0;
+	float long1=0;
+	float long2=0;
 	float distance0=0;
 	float distance1=0;
 	float distance2=0;
@@ -91,15 +91,16 @@ public:
 
 declaration::declaration2()
 {
-	MiniMD motor0(cw0,ccw0,pwm0);
-	MiniMD motor1(cw1,ccw1,pwm1);
-	MiniMD motor2(cw2,ccw2,pwm2);
+	MiniMD minimd;
+	minimd motor0(cw0,ccw0,pwm0);
+	minimd motor1(cw1,ccw1,pwm1);
+	minimd motor2(cw2,ccw2,pwm2);
 
 	motor0.setup();
-	motor0.duty(1.0);
+	motor0.duty(-1.0);
 	motor0.cycle();
 	motor1.setup();
-	motor1.duty(-1.0);
+	motor1.duty(1.0);
 	motor1.cycle();
 	motor2.setup();
 	motor2.duty(0.0);
@@ -155,24 +156,44 @@ void declaration::position()
 	machineX1=(motor0X+motor1X+motor2X)/3;//上記の3線のx座標の合計
 	machineY1=(motor0Y+motor1Y+motor2Y)/3;//上記の3線のy座標の合計
 
-	*machineX+=machineX1*cos(theta)-machineY1*sin(theta);//5ミリ秒後の座標xと現在のx座標と足す
-	*machineY+=machineX1*sin(theta)+machineY1*cos(theta);//5ミリ秒後の座標yと現在のy座標を足す
+	machineX+=machineX1*cos(theta)-machineY1*sin(theta);//5ミリ秒後の座標xと現在のx座標と足す
+	machineY+=machineX1*sin(theta)+machineY1*cos(theta);//5ミリ秒後の座標yと現在のy座標を足す
 }
 
 void declaration::print()
 {
+	while (1){
 	if (millis()-time>50)
 	 	{
 	 	    time=millis();
 	 		//serial.printf("%d %d %d\n\r",canenc0.count(),canenc1.count(),canenc2.count());
 	 		serial.printf("%f %f\n\r",machineX,machineY);
 	    }
+	}
 }
 
 int main()
 {
 	declaration declaration1;
-	//float i,j;
+
+	declaration1.encoderMAX1=200;
+	declaration1.encoderMAX2=1000;
+	declaration1.diameter=30;
+	declaration1.long0=115;
+	declaration1.long1=115;
+	declaration1.long2=115;
+
+	Can0 can;
+	CanEncoder enc0(can , 0 , 5);
+	CanEncoder enc1(can , 1 , 5);
+	CanEncoder enc2(can , 2 , 5);
+
+	EncoderUser enc(enc0,enc1,enc2);
+	enc.setup();
+   	declaration1.print();
+return 0;
+}
+//float i,j;
 
 	/*A2 led;
 	led.setupDigitalOut();
@@ -205,27 +226,3 @@ int main()
 		pin.digitalRead();
 		}
     return 0;*/
-	Can0 can;
-	CanEncoder enc0(can , 0 , 5);
-	CanEncoder enc1(can , 1 , 5);
-	CanEncoder enc2(can , 2 , 5);
-
-	EncoderUser enc(enc0,enc1,enc2);
-	enc.setup();
-	while (1)
-	{
-   		/*if (machineX>=1500)
-   		{
-   			i=2000-machineX;
-   			j=i*0.002;
-   			if (j>=1)
-   			{
-   				j=1;
-   				motor0.duty(j);
-   				motor1.duty(-j);
-   			}
-   		}*/
-   		declaration1.print();
-     }
-return 0;
-}
