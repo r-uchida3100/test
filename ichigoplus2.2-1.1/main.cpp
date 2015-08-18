@@ -52,7 +52,6 @@ public:
 	CW2 cw2;
 	CCW2 ccw2;
 	Pwm2 pwm2;
-	void position();
 	declaration();
 };
 
@@ -84,9 +83,6 @@ public:
 	float long0;
 	float long1;
 	float long2;
-	float distance0;
-	float distance1;
-	float distance2;
 	float motor0X;
 	float motor0Y;
 	float motor1X;
@@ -106,38 +102,17 @@ public:
 	float machineX;
 	float machineY;
 	float a;
-	float theta0,theta1,theta2,theta;
 	float last0,last1,last2;
+	float encAction0,encAction1,encAction2;
+	float encActionOld0,encActionOld1,encActionOld2;
+	float encActionRemainder0,encActionRemainder1,encActionRemainder2;
+	float machineAngle;
 
+	void cycle();
 	EncoderUser(Encoder &enc_0,Encoder &enc_1,Encoder &enc_2){
 		enc0=&enc_0;
 		enc1=&enc_1;
 		enc2=&enc_2;
-
-		distance0=enc0->count()*(diameter*M_PI/encoderMAX2)-last0;
-		distance1=enc1->count()*(diameter*M_PI/encoderMAX1)-last1;
-		distance2=enc2->count()*(diameter*M_PI/encoderMAX1)-last2;
-		last0=enc0->count()*(diameter*M_PI/encoderMAX2);
-		last1=enc1->count()*(diameter*M_PI/encoderMAX1);
-		last2=enc2->count()*(diameter*M_PI/encoderMAX1);
-
-	    theta0=atan2(distance0,long0);
-	    theta1=atan2(distance1,long1);
-	    theta2=atan2(distance2,long2);
-	    theta=(theta0+theta1+theta2)/3;
-
-	    motor0X=(distance1-distance0)/(2*sin(M_PI/3));
-	    motor0Y=(-1)*(distance1+distance0)/(2*cos(M_PI/3));
-	    motor1X=(-1)*(distance0+(distance2*cos(M_PI/3)))/sin(M_PI/3);
-	    motor1Y=distance2;
-	    motor2X=(distance1+(distance2*cos(M_PI/3)))/sin(M_PI/3);
-	    motor2Y=distance2;
-
-	    machineX1=(motor0X+motor1X+motor2X)/3;//上記の3線のx座標の合計
-	    machineY1=(motor0Y+motor1Y+motor2Y)/3;//上記の3線のy座標の合計
-
-	    machineX+=machineX1*cos(theta)-machineY1*sin(theta);//5ミリ秒後の座標xと現在のx座標と足す
-	    machineY+=machineX1*sin(theta)+machineY1*cos(theta);//5ミリ秒後の座標yと現在のy座標を足す
 	}
 	int setup(){
 		int i=0;
@@ -152,27 +127,51 @@ private:
 	Encoder *enc2;
 };
 
-void declaration::position()
+void EncoderUser::cycle()
 {
+
+	encAction0=enc0->count()/(encoderMAX2*diameter*M_PI);
+	encAction1=enc1->count()/(encoderMAX1*diameter*M_PI);
+	encAction2=enc2->count()/(encoderMAX1*diameter*M_PI);
+
+	encAction0=encAction0*10000;
+	encAction1=encAction1*10000;
+	encAction2=encAction2*10000;
+
+	encActionRemainder0=encAction0-encActionOld0;
+	encActionRemainder1=encAction1-encActionOld1;
+	encActionRemainder2=encAction2-encActionOld2;
+
+	encActionOld0=encAction0;
+	encActionOld1=encAction1;
+	encActionOld2=encAction2;
+
+	machineAngle=(encAction0+encAction1+encAction2)/3/long0;
+
+    motor0X=(encActionRemainder0-encActionRemainder1)/(2*sin(M_PI/3));//0番と1番の交点
+    motor0Y=(encActionRemainder0+encActionRemainder1)/(2*cos(M_PI/3));
+    motor1X=(encActionRemainder0+(encActionRemainder2*cos(M_PI/3)))/sin(M_PI/3);//0番と2番の交点
+    motor1Y=(-1)*encActionRemainder2;
+    motor2X=(-1)*(encActionRemainder1+(encActionRemainder2*cos(M_PI/3)))/sin(M_PI/3);//１番と2番の交点
+    motor2Y=(-1)*encActionRemainder2;
+
+    machineX1=(motor0X+motor1X+motor2X)/3;//上記の3線のx座標の合計
+    machineY1=(motor0Y+motor1Y+motor2Y)/3;//上記の3線のy座標の合計
+
+    machineX+=machineX1*cos(machineAngle)-machineY1*sin(machineAngle);//5ミリ秒後の座標xと現在のx座標と足す
+    machineY+=machineX1*sin(machineAngle)+machineY1*cos(machineAngle);//5ミリ秒後の座標yと現在のy座標を足す
 
 }
 
 int main()
 {
 	int time;
+	//float enc0,enc1,enc2;
 
 	Serial0 serial;
 	serial.setup(115200);
 
 	declaration declaration1;
-	EncoderUser encuser();
-
-	encuser.encoderMAX1=200;
-	encuser.encoderMAX2=1000;
-	encuser.diameter=30;
-	encuser.long0=115;
-	encuser.long1=115;
-	encuser.long2=115;
 
 	Can0 can;
 	CanEncoder enc0(can , 0 , 5);
@@ -182,15 +181,26 @@ int main()
 	EncoderUser enc(enc0,enc1,enc2);
 	enc.setup();
 
-	while (1){
-		declaration1.position();
+	EncoderUser encuser(enc0,enc1,enc2);
 
+	encuser.encoderMAX1=200;
+	encuser.encoderMAX2=1000;
+	encuser.diameter=30;
+	encuser.long0=115;
+	encuser.long1=115;
+	encuser.long2=115;
+	while (1){
+		encuser.cycle();
 		if (millis()-time>50)
 		 	{
 		 	    time=millis();
 		 		//serial.printf("%d %d %d\n\r",canenc0.count(),canenc1.count(),canenc2.count());
-		 		serial.printf("%f %f\n\r",encuser.machineX,encuser.machineY);
+		 		serial.printf("%f %f %f\n\r",encuser.machineX,encuser.machineY,encuser.machineAngle
+		 				);
 	        }
+		if (encuser.machineX>=350)
+		{
+		}
 	}
 return 0;
 }
