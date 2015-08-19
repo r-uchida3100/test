@@ -1,4 +1,5 @@
 //libraries
+#include "math.h"
 
 //application
 
@@ -7,7 +8,7 @@
 //base
 #include "system.h"
 #include "mcutime.h"
-
+#include "software_reset.h"
 //board
 #include "pin.hpp"
 
@@ -17,7 +18,6 @@
 
 //driver
 
-#include "math.h"
 /*
 Led0 led;
 Blink blink(led);
@@ -36,43 +36,105 @@ return 0;*/
 	deviation=
 
 }*/
-
-class declaration
+class Control
 {
 public:
 	Enc0 enc0;
 	Enc1 enc1;
 	Enc2 enc2;
 	CW0 cw0;
-	CCW0 ccw0;
-	Pwm0 pwm0;
 	CW1 cw1;
-	CCW1 ccw1;
-	Pwm1 pwm1;
 	CW2 cw2;
+	CCW0 ccw0;
+	CCW1 ccw1;
 	CCW2 ccw2;
+	Pwm0 pwm0;
+	Pwm1 pwm1;
 	Pwm2 pwm2;
-	declaration();
-};
+	Sw0 sw0;
+	Sw1 sw1;
+	Sw2 sw2;
+	Sw3 sw3;
+	Control();
 
-declaration::declaration()
+	int count;
+	int time;
+};
+Control::Control()
 {
 	MiniMD motor0(cw0,ccw0,pwm0);
 	MiniMD motor1(cw1,ccw1,pwm1);
 	MiniMD motor2(cw2,ccw2,pwm2);
+	printf("%d\n",__LINE__);
 
 	motor0.setup();
-	motor0.duty(-1.0);
-	motor0.cycle();
 	motor1.setup();
-	motor1.duty(1.0);
-	motor1.cycle();
 	motor2.setup();
-	motor2.duty(0.0);
-	motor2.cycle();
 	enc0.setup();
 	enc1.setup();
 	enc2.setup();
+	printf("%d\n",__LINE__);
+
+	sw0.setupDigitalIn();
+	sw1.setupDigitalIn();
+	sw2.setupDigitalIn();
+	sw3.setupDigitalIn();
+	printf("%d\n",__LINE__);
+
+	do {printf("%d\n",__LINE__);
+		count=1;
+		if (sw0.digitalRead()==0);
+		{
+			printf("%d\n",__LINE__);
+			if (millis()-time>=50)
+			{
+				printf("%d\n",__LINE__);
+				time=millis();
+				count=2;
+				printf("%d\n",__LINE__);
+				if (count=2)
+				{
+					printf("%d\n",__LINE__);
+					do {
+						printf("%d\n",__LINE__);
+						if (sw0.digitalRead()==1)
+						{
+							printf("%d\n",__LINE__);
+							if (millis()-time>=50)
+							{
+								printf("%d\n",__LINE__);
+								time=millis();
+								count=3;
+								printf("%d\n",__LINE__);
+							}
+						printf("%d\n",__LINE__);
+						motor0.duty(-1.0);
+						motor1.duty(1.0);
+						motor2.duty(0.0);
+						motor0.cycle();
+						motor1.cycle();
+						motor2.cycle();
+						printf("%d\n",__LINE__);
+						}
+						printf("%d\n",__LINE__);
+					} while (count==2);
+					printf("%d\n",__LINE__);
+				}
+				printf("%d\n",__LINE__);
+			}
+			printf("%d\n",__LINE__);
+		sw0.digitalRead();
+		printf("%d\n",__LINE__);
+		if (sw0.digitalRead()==0)
+		{
+			printf("%d\n",__LINE__);
+			software_reset();
+		}
+		printf("%d\n",__LINE__);
+		}
+		printf("%d\n",__LINE__);
+	} while (count==1);
+	printf("%d\n",__LINE__);
 };
 
 class EncoderUser{
@@ -97,11 +159,8 @@ public:
 	float machiney2;
 	float machinex;
 	float machiney;
-	float machinexdash;
-	float machineydash;
 	float machineX;
 	float machineY;
-	float a;
 	float last0,last1,last2;
 	float encAction0,encAction1,encAction2;
 	float encActionOld0,encActionOld1,encActionOld2;
@@ -161,6 +220,8 @@ void EncoderUser::cycle()
     machineX+=machineX1*cos(machineAngle)-machineY1*sin(machineAngle);//5ミリ秒後の座標xと現在のx座標と足す
     machineY+=machineX1*sin(machineAngle)+machineY1*cos(machineAngle);//5ミリ秒後の座標yと現在のy座標を足す
 
+    machineX=machineX*5/4;
+    machineY=machineY*5/4;
 }
 
 int main()
@@ -171,8 +232,10 @@ int main()
 	Serial0 serial;
 	serial.setup(115200);
 
-	declaration declaration1;
+	Control conrol;
 
+	conrol.count=0;
+	conrol.time=0;
 	Can0 can;
 	CanEncoder enc0(can , 0 , 5);
 	CanEncoder enc1(can , 1 , 5);
@@ -189,14 +252,43 @@ int main()
 	encuser.long0=115;
 	encuser.long1=115;
 	encuser.long2=115;
+	encuser.motor0X=0;
+	encuser.motor0Y=0;
+	encuser.motor1X=0;
+	encuser.motor1Y=0;
+	encuser.motor2X=0;
+	encuser.motor2Y=0;
+	encuser.machineX1=0;
+	encuser.machineY1=0;
+	encuser.machinex1=0;
+	encuser.machiney1=0;
+	encuser.machinex2=0;
+	encuser.machiney2=0;
+	encuser.machinex=0;
+	encuser.machiney=0;
+	encuser.machineX=0;
+	encuser.machineY=0;
+	encuser.last0=0;
+	encuser.last1=0;
+	encuser.last2=0;
+	encuser.encAction0=0;
+	encuser.encAction1=0;
+	encuser.encAction2=0;
+	encuser.encActionOld0=0;
+	encuser.encActionOld1=0;
+	encuser.encActionOld2=0;
+	encuser.encActionRemainder0=0;
+	encuser.encActionRemainder1=0;
+	encuser.encActionRemainder2=0;
+	encuser.machineAngle=0;
+
 	while (1){
 		encuser.cycle();
 		if (millis()-time>50)
 		 	{
 		 	    time=millis();
 		 		//serial.printf("%d %d %d\n\r",canenc0.count(),canenc1.count(),canenc2.count());
-		 		serial.printf("%f %f %f\n\r",encuser.machineX,encuser.machineY,encuser.machineAngle
-		 				);
+		 		serial.printf("%f %f %f\n\r",encuser.machineX,encuser.machineY,encuser.machineAngle);
 	        }
 		if (encuser.machineX>=350)
 		{
