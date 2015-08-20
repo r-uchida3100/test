@@ -55,12 +55,13 @@ public:
 	Sw1 sw1;
 	Sw2 sw2;
 	Sw3 sw3;
-	Control();
+	void swich();
 
 	int count;
-	int time;
+	int time1;
 };
-Control::Control()
+
+void Control::swich()
 {
 	MiniMD motor0(cw0,ccw0,pwm0);
 	MiniMD motor1(cw1,ccw1,pwm1);
@@ -73,26 +74,24 @@ Control::Control()
 	enc0.setup();
 	enc1.setup();
 	enc2.setup();
-	printf("%d\n",__LINE__);
-
 	sw0.setupDigitalIn();
 	sw1.setupDigitalIn();
 	sw2.setupDigitalIn();
 	sw3.setupDigitalIn();
 	printf("%d\n",__LINE__);
 
-	do {printf("%d\n",__LINE__);
+	/*do {printf("%d\n",__LINE__);
 		count=1;
 		if (sw0.digitalRead()==0);
 		{
 			printf("%d\n",__LINE__);
-			if (millis()-time>=50)
+			if (millis()-time1>=50)
 			{
 				printf("%d\n",__LINE__);
-				time=millis();
+				time1=millis();
 				count=2;
 				printf("%d\n",__LINE__);
-				if (count=2)
+				if (count==2)
 				{
 					printf("%d\n",__LINE__);
 					do {
@@ -100,20 +99,14 @@ Control::Control()
 						if (sw0.digitalRead()==1)
 						{
 							printf("%d\n",__LINE__);
-							if (millis()-time>=50)
+							if (millis()-time1>=50)
 							{
 								printf("%d\n",__LINE__);
-								time=millis();
+								time1=millis();
 								count=3;
 								printf("%d\n",__LINE__);
 							}
 						printf("%d\n",__LINE__);
-						motor0.duty(-1.0);
-						motor1.duty(1.0);
-						motor2.duty(0.0);
-						motor0.cycle();
-						motor1.cycle();
-						motor2.cycle();
 						printf("%d\n",__LINE__);
 						}
 						printf("%d\n",__LINE__);
@@ -134,8 +127,38 @@ Control::Control()
 		}
 		printf("%d\n",__LINE__);
 	} while (count==1);
+	printf("%d\n",__LINE__);*/
+
 	printf("%d\n",__LINE__);
-};
+	do {
+		printf("%d\n",__LINE__);
+		if (sw0.digitalRead()==1)
+		{
+			printf("%d\n",__LINE__);
+			motor0.duty(0.0);
+			motor1.duty(0.0);
+			motor2.duty(0.0);
+			motor0.cycle();
+			motor1.cycle();
+			motor2.cycle();
+			printf("%d\n",__LINE__);
+		}
+		count=1;
+		printf("%d\n",__LINE__);
+	} while (count==1);
+	printf("%d\n",__LINE__);
+	if (sw0.digitalRead()==0)
+	{
+		printf("%d\n",__LINE__);
+		motor0.duty(-1.0);
+		motor1.duty(1.0);
+		motor2.duty(0.0);
+		motor0.cycle();
+		motor1.cycle();
+		motor2.cycle();
+		printf("%d\n",__LINE__);
+	}
+}
 
 class EncoderUser{
 public:
@@ -220,8 +243,8 @@ void EncoderUser::cycle()
     machineX+=machineX1*cos(machineAngle)-machineY1*sin(machineAngle);//5ミリ秒後の座標xと現在のx座標と足す
     machineY+=machineX1*sin(machineAngle)+machineY1*cos(machineAngle);//5ミリ秒後の座標yと現在のy座標を足す
 
-    machineX=machineX*5/4;
-    machineY=machineY*5/4;
+    //machineX=machineX*5/4;
+    //machineY=machineY*5/4;
 }
 
 int main()
@@ -232,15 +255,16 @@ int main()
 	Serial0 serial;
 	serial.setup(115200);
 
-	Control conrol;
+	Control control;
 
-	conrol.count=0;
-	conrol.time=0;
+	control.count=0;
+	control.time1=0;
 	Can0 can;
 	CanEncoder enc0(can , 0 , 5);
 	CanEncoder enc1(can , 1 , 5);
 	CanEncoder enc2(can , 2 , 5);
 
+	control.swich();
 	EncoderUser enc(enc0,enc1,enc2);
 	enc.setup();
 
