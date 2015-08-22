@@ -55,18 +55,16 @@ public:
 	Sw1 sw1;
 	Sw2 sw2;
 	Sw3 sw3;
-	void swich();
 
+	Control();
 	int count;
 	int time1;
 };
 
-void Control::swich()
-{
+Control::Control(){
 	MiniMD motor0(cw0,ccw0,pwm0);
 	MiniMD motor1(cw1,ccw1,pwm1);
 	MiniMD motor2(cw2,ccw2,pwm2);
-	printf("%d\n",__LINE__);
 
 	motor0.setup();
 	motor1.setup();
@@ -78,87 +76,38 @@ void Control::swich()
 	sw1.setupDigitalIn();
 	sw2.setupDigitalIn();
 	sw3.setupDigitalIn();
-	printf("%d\n",__LINE__);
-
-	/*do {printf("%d\n",__LINE__);
-		count=1;
-		if (sw0.digitalRead()==0);
-		{
-			printf("%d\n",__LINE__);
-			if (millis()-time1>=50)
-			{
-				printf("%d\n",__LINE__);
-				time1=millis();
-				count=2;
-				printf("%d\n",__LINE__);
-				if (count==2)
-				{
-					printf("%d\n",__LINE__);
-					do {
-						printf("%d\n",__LINE__);
-						if (sw0.digitalRead()==1)
-						{
-							printf("%d\n",__LINE__);
-							if (millis()-time1>=50)
-							{
-								printf("%d\n",__LINE__);
-								time1=millis();
-								count=3;
-								printf("%d\n",__LINE__);
-							}
-						printf("%d\n",__LINE__);
-						printf("%d\n",__LINE__);
-						}
-						printf("%d\n",__LINE__);
-					} while (count==2);
-					printf("%d\n",__LINE__);
-				}
-				printf("%d\n",__LINE__);
-			}
-			printf("%d\n",__LINE__);
-		sw0.digitalRead();
-		printf("%d\n",__LINE__);
-		if (sw0.digitalRead()==0)
-		{
-			printf("%d\n",__LINE__);
-			software_reset();
-		}
-		printf("%d\n",__LINE__);
-		}
-		printf("%d\n",__LINE__);
-	} while (count==1);
-	printf("%d\n",__LINE__);*/
-
-	printf("%d\n",__LINE__);
-	do {
-		printf("%d\n",__LINE__);
-		if (sw0.digitalRead()==1)
-		{
-			printf("%d\n",__LINE__);
-			motor0.duty(0.0);
-			motor1.duty(0.0);
-			motor2.duty(0.0);
-			motor0.cycle();
-			motor1.cycle();
-			motor2.cycle();
-			printf("%d\n",__LINE__);
-		}
-		count=1;
-		printf("%d\n",__LINE__);
-	} while (count==1);
-	printf("%d\n",__LINE__);
-	if (sw0.digitalRead()==0)
-	{
-		printf("%d\n",__LINE__);
-		motor0.duty(-1.0);
-		motor1.duty(1.0);
-		motor2.duty(0.0);
-		motor0.cycle();
-		motor1.cycle();
-		motor2.cycle();
-		printf("%d\n",__LINE__);
-	}
 }
+
+class MiniMDuser{
+public:
+	CW0 cw0;
+	CW1 cw1;
+	CW2 cw2;
+	CCW0 ccw0;
+	CCW1 ccw1;
+	CCW2 ccw2;
+	Pwm0 pwm0;
+	Pwm1 pwm1;
+	Pwm2 pwm2;
+
+	MiniMDuser(MiniMD &motor_0,MiniMD &motor_1,MiniMD &motor_2){
+		motor0=&motor_0;
+		motor1=&motor_1;
+		motor2=&motor_2;
+	}
+	int setup()
+	{
+		int j;
+		j+=(motor0->setup()!=0);
+		j+=(motor1->setup()!=0);
+		j+=(motor2->setup()!=0);
+		return j;
+	}
+private:
+	MiniMD *motor0;
+	MiniMD *motor1;
+	MiniMD *motor2;
+};
 
 class EncoderUser{
 public:
@@ -259,12 +208,21 @@ int main()
 
 	control.count=0;
 	control.time1=0;
+
+	MiniMDuser MDuser(motor0,motor1,motor2);
+
+	MiniMD motor0(MDuser.cw0,MDuser.ccw0,MDuser.pwm0);
+	MiniMD motor1(MDuser.cw1,MDuser.ccw1,MDuser.pwm1);
+	MiniMD motor2(MDuser.cw2,MDuser.ccw2,MDuser.pwm2);
+
+	MiniMDuser motor(motor0,motor1,motor2);
+	motor.setup();
+
 	Can0 can;
 	CanEncoder enc0(can , 0 , 5);
 	CanEncoder enc1(can , 1 , 5);
 	CanEncoder enc2(can , 2 , 5);
 
-	control.swich();
 	EncoderUser enc(enc0,enc1,enc2);
 	enc.setup();
 
@@ -305,8 +263,17 @@ int main()
 	encuser.encActionRemainder1=0;
 	encuser.encActionRemainder2=0;
 	encuser.machineAngle=0;
-
+    while (1)
+    {
+	if (control.sw0.digitalRead()==0)
+	{
 	while (1){
+		motor0.duty(-1.0);
+		motor1.duty(1.0);
+		motor2.duty(0.0);
+		motor0.cycle();
+		motor1.cycle();
+		motor2.cycle();
 		encuser.cycle();
 		if (millis()-time>50)
 		 	{
@@ -318,6 +285,8 @@ int main()
 		{
 		}
 	}
+	}
+    }
 return 0;
 }
 //float i,j;
