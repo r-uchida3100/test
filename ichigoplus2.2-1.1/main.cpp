@@ -36,6 +36,7 @@ return 0;*/
 	deviation=
 
 }*/
+/*
 class Control
 {
 public:
@@ -77,18 +78,10 @@ Control::Control(){
 	sw2.setupDigitalIn();
 	sw3.setupDigitalIn();
 }
-
+*/
+/*
 class MiniMDuser{
 public:
-	CW0 cw0;
-	CW1 cw1;
-	CW2 cw2;
-	CCW0 ccw0;
-	CCW1 ccw1;
-	CCW2 ccw2;
-	Pwm0 pwm0;
-	Pwm1 pwm1;
-	Pwm2 pwm2;
 
 	MiniMDuser(MiniMD &motor_0,MiniMD &motor_1,MiniMD &motor_2){
 		motor0=&motor_0;
@@ -108,7 +101,7 @@ private:
 	MiniMD *motor1;
 	MiniMD *motor2;
 };
-
+*/
 class EncoderUser{
 public:
 	float encoderMAX1;
@@ -138,6 +131,9 @@ public:
 	float encActionOld0,encActionOld1,encActionOld2;
 	float encActionRemainder0,encActionRemainder1,encActionRemainder2;
 	float machineAngle;
+	float EncRemainder0,EncRemainder1,EncRemainder2;
+	float EncOld0,EncOld1,EncOld2;
+	float EncDistance0,EncDistance1,EncDistance2;
 
 	void cycle();
 	EncoderUser(Encoder &enc_0,Encoder &enc_1,Encoder &enc_2){
@@ -161,13 +157,9 @@ private:
 void EncoderUser::cycle()
 {
 
-	encAction0=enc0->count()/(encoderMAX2*diameter*M_PI);
-	encAction1=enc1->count()/(encoderMAX1*diameter*M_PI);
-	encAction2=enc2->count()/(encoderMAX1*diameter*M_PI);
-
-	encAction0=encAction0*10000;
-	encAction1=encAction1*10000;
-	encAction2=encAction2*10000;
+	encAction0=diameter*M_PI*enc0->count()/encoderMAX2;
+	encAction1=diameter*M_PI*enc1->count()/encoderMAX1;
+	encAction2=diameter*M_PI*enc2->count()/encoderMAX1;
 
 	encActionRemainder0=encAction0-encActionOld0;
 	encActionRemainder1=encAction1-encActionOld1;
@@ -179,12 +171,12 @@ void EncoderUser::cycle()
 
 	machineAngle=(encAction0+encAction1+encAction2)/3/long0;
 
-    motor0X=(encActionRemainder0-encActionRemainder1)/(2*sin(M_PI/3));//0番と1番の交点
-    motor0Y=(encActionRemainder0+encActionRemainder1)/(2*cos(M_PI/3));
-    motor1X=(encActionRemainder0+(encActionRemainder2*cos(M_PI/3)))/sin(M_PI/3);//0番と2番の交点
-    motor1Y=(-1)*encActionRemainder2;
-    motor2X=(-1)*(encActionRemainder1+(encActionRemainder2*cos(M_PI/3)))/sin(M_PI/3);//１番と2番の交点
-    motor2Y=(-1)*encActionRemainder2;
+    motor0X=(-1)*(encActionRemainder0-encActionRemainder1)/(2*sin(M_PI/3));//0番と1番の交点
+    motor0Y=(-1)*(encActionRemainder0+encActionRemainder1)/(2*cos(M_PI/3));
+    motor1X=(-1)*(encActionRemainder0+(encActionRemainder2*cos(M_PI/3)))/sin(M_PI/3);//0番と2番の交点
+    motor1Y=encActionRemainder2;
+    motor2X=(encActionRemainder1+(encActionRemainder2*cos(M_PI/3)))/sin(M_PI/3);//１番と2番の交点
+    motor2Y=encActionRemainder2;
 
     machineX1=(motor0X+motor1X+motor2X)/3;//上記の3線のx座標の合計
     machineY1=(motor0Y+motor1Y+motor2Y)/3;//上記の3線のy座標の合計
@@ -196,19 +188,60 @@ void EncoderUser::cycle()
     //machineY=machineY*5/4;
 }
 
+class Omni0{
+public:
+	Omni0(MiniMD &MD0,MiniMD &MD1,MiniMD &MD2);
+	int setup();
+	void cycle();
+
+	void order(float vecter,float speed,float rotation);
+};
+
+Omni0::Omni0(MiniMD &MD0,MiniMD &MD1,MiniMD &MD2)
+{}
+
+class Move{
+public:
+	Move(Omni0 &Omni,EncoderUser &User);
+	int setup();
+	void cycle();
+
+	void request(float coordinateX,float coodinateY,float Angle);
+	void stop();
+	int busy();
+};
+
+Move::Move(Omni0 &Omni,EncoderUser &User)
+{}
+
+int Move::setup()
+{}
+
+void Move::cycle()
+{
+
+}
+
+void Move::request(float coordinateX,float coodinateY,float Angle)
+{}
+
+void Move::stop()
+{}
+
+int Move::busy()
+{}
+
 int main()
 {
 	int time;
 	//float enc0,enc1,enc2;
 
+
 	Serial0 serial;
 	serial.setup(115200);
 
-	Control control;
 
-	control.count=0;
-	control.time1=0;
-
+/*
 	MiniMDuser MDuser(motor0,motor1,motor2);
 
 	MiniMD motor0(MDuser.cw0,MDuser.ccw0,MDuser.pwm0);
@@ -217,7 +250,7 @@ int main()
 
 	MiniMDuser motor(motor0,motor1,motor2);
 	motor.setup();
-
+*/
 	Can0 can;
 	CanEncoder enc0(can , 0 , 5);
 	CanEncoder enc1(can , 1 , 5);
@@ -227,6 +260,27 @@ int main()
 	enc.setup();
 
 	EncoderUser encuser(enc0,enc1,enc2);
+
+	CW0 cw0;
+	CW1 cw1;
+	CW2 cw2;
+	CCW0 ccw0;
+	CCW1 ccw1;
+	CCW2 ccw2;
+	Pwm0 pwm0;
+	Pwm1 pwm1;
+	Pwm2 pwm2;
+
+	MiniMD motor0(cw0,ccw0,pwm0);
+	MiniMD motor1(cw1,ccw1,pwm1);
+	MiniMD motor2(cw2,ccw2,pwm2);
+
+	Omni0 omni0(motor0,motor1,motor2);
+
+	Move move(omni0,encuser);
+	move.setup();
+
+	move.request(2000,0,0);
 
 	encuser.encoderMAX1=200;
 	encuser.encoderMAX2=1000;
@@ -263,31 +317,34 @@ int main()
 	encuser.encActionRemainder1=0;
 	encuser.encActionRemainder2=0;
 	encuser.machineAngle=0;
+	while (1){/*
+			motor0.duty(-1.0);
+			motor1.duty(1.0);
+			motor2.duty(0.0);
+			motor0.cycle();
+			motor1.cycle();
+			motor2.cycle();
+			encuser.cycle();*/
+			if (millis()-time>50)
+			 	{
+			 	    time=millis();
+			 	   if(!move.busy()) move.stop();
+			 	   move.cycle();
+			 	    encuser.cycle();
+			 	    //serial.printf("%d %d %d\n\r",enc0.count(),enc1.count(),enc2.count());
+			 		serial.printf("%f %f %f\n\r",encuser.machineX,encuser.machineY,encuser.machineAngle);
+		        }
+
+		}
+	/*
     while (1)
     {
 	if (control.sw0.digitalRead()==0)
 	{
-	while (1){
-		motor0.duty(-1.0);
-		motor1.duty(1.0);
-		motor2.duty(0.0);
-		motor0.cycle();
-		motor1.cycle();
-		motor2.cycle();
-		encuser.cycle();
-		if (millis()-time>50)
-		 	{
-		 	    time=millis();
-		 		//serial.printf("%d %d %d\n\r",canenc0.count(),canenc1.count(),canenc2.count());
-		 		serial.printf("%f %f %f\n\r",encuser.machineX,encuser.machineY,encuser.machineAngle);
-	        }
-		if (encuser.machineX>=350)
-		{
-		}
-	}
+
 	}
     }
-return 0;
+*/return 0;
 }
 //float i,j;
 

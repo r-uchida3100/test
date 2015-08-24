@@ -26,7 +26,7 @@
 </editorArea>
 <editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="main.cpp" partName="main.cpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/main.cpp" title="main.cpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/main.cpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/main.cpp"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4113" selectionTopPixel="3194"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4282" selectionTopPixel="3357"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="mini_md.cpp" partName="mini_md.cpp" path="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/layer_driver/circuit_drivers/mini_md_1.0/mini_md.cpp" title="mini_md.cpp" tooltip="C:/Users/涼輔/Documents/test(1)/ichigoplus2.2-1.1/layer_driver/circuit_drivers/mini_md_1.0/mini_md.cpp" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ichigoplus/layer_driver/circuit_drivers/mini_md_1.0/mini_md.cpp"/>
@@ -50,22 +50,10 @@
 <viewState/>
 </view>
 <view id="org.coocox.builder.ui.views.ProjectView" partName="Project">
-<viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="6">
+<viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="0">
 <expanded>
 <element path="/ichigoplus"/>
-<element path="/ichigoplus/layer_controller"/>
-<element path="/ichigoplus/layer_driver"/>
-<element path="/ichigoplus/layer_driver/base"/>
-<element path="/ichigoplus/layer_driver/board"/>
-<element path="/ichigoplus/layer_driver/board/stm32f4_config"/>
-<element path="/ichigoplus/layer_driver/circuit_drivers"/>
-<element path="/ichigoplus/layer_driver/circuit_drivers/can_encoder"/>
-<element path="/ichigoplus/layer_driver/circuit_drivers/mini_md_1.0"/>
-<element path="/ichigoplus/syscalls"/>
 </expanded>
-<selection>
-<element path="/ichigoplus/layer_driver/board/stm32f4_config/iwdg_software_reset.h"/>
-</selection>
 </viewState>
 </view>
 <view id="org.coocox.codebugger.trace.ui.traceview" partName="Semihosting">
@@ -275,9 +263,6 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/circuit_drivers/mini_md_1.0/mini_md.hpp"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ichigoplus/layer_driver/circuit_drivers/mini_md_1.0/mini_md.cpp"/>
 </editors>
-<item historyLabel="main.cpp" index="0">
-<position/>
-</item>
 <item historyLabel="pin.hpp" index="1">
 <position/>
 </item>
@@ -422,8 +407,11 @@
 <item historyLabel="main.cpp" index="0">
 <position info="not_deleted" x="4157" y="52"/>
 </item>
-<item active="true" historyLabel="main.cpp" index="0">
+<item historyLabel="main.cpp" index="0">
 <position info="not_deleted" x="4053" y="52"/>
+</item>
+<item active="true" historyLabel="main.cpp" index="0">
+<position info="not_deleted" x="4191" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -432,6 +420,9 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.cpp" tooltip="ichigoplus/main.cpp">
+<persistable path="/ichigoplus/main.cpp"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="pin.hpp" tooltip="ichigoplus/layer_driver/board/pin.hpp">
 <persistable path="/ichigoplus/layer_driver/board/pin.hpp"/>
 </file>
@@ -470,10 +461,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="can_encoder.cpp" tooltip="ichigoplus/layer_driver/circuit/can_encoder.cpp">
 <persistable path="/ichigoplus/layer_driver/circuit/can_encoder.cpp"/>
-</file>
-<file factoryID="org.coocox.component.ui.editors.repository.RepositoryElementFactory" id="org.coocox.builder.ui.editors.repository.RepositoryBrowser" name="Repository" tooltip="Repository">
-<persistable>&#x0A;<subPage/>
-</persistable>
 </file>
 <file factoryID="org.coocox.component.ui.editors.repository.RepositoryElementFactory" id="org.coocox.builder.ui.editors.repository.RepositoryBrowser" name="Repository" tooltip="Repository">
 <persistable>&#x0A;<subPage/>

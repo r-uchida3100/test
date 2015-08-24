@@ -131,6 +131,15 @@
       <source file="..\..\..\layer_driver\board\stm32f4_config\config_pwm.c" lastModified="14ecf413d2d">
          <include file="..\..\..\layer_driver\board\stm32f4_config\config_pwm.h"/>
       </source>
+      <source file="..\..\..\main.cpp" lastModified="14f5f00bc1f">
+         <include file="..\..\..\layer_controller\blink.hpp"/>
+         <include file="..\..\..\layer_driver\base\system.h"/>
+         <include file="..\..\..\layer_driver\base\mcutime.h"/>
+         <include file="..\..\..\layer_driver\base\software_reset.h"/>
+         <include file="..\..\..\layer_driver\board\pin.hpp"/>
+         <include file="..\..\..\layer_driver\circuit_drivers\can_encoder\can_encoder.hpp"/>
+         <include file="..\..\..\layer_driver\circuit_drivers\mini_md_1.0\mini_md.hpp"/>
+      </source>
       <source file="..\..\..\layer_driver\board\stm32f4_config\usb\usb_lib\cdc\usbd_cdc_core.c" lastModified="14ecf41422f">
          <include file="..\..\..\layer_driver\board\stm32f4_config\usb\usb_lib\cdc\usbd_cdc_core.h"/>
          <include file="..\..\..\layer_driver\board\stm32f4_config\usb\usb_conf\usbd_desc.h"/>
