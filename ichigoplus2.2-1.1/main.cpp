@@ -102,6 +102,7 @@ private:
 	MiniMD *motor2;
 };
 */
+/*
 class EncoderUser{
 public:
 	float encoderMAX1;
@@ -194,36 +195,89 @@ public:
 	int setup();
 	void cycle();
 
-	void order(float vecter,float speed,float rotation);
+	void order(float direction,float speed,float rotation);
 };
 
 Omni0::Omni0(MiniMD &MD0,MiniMD &MD1,MiniMD &MD2)
 {}
 
+void cycle()
+{
+
+}
+
+void Omni0::order(float derection,float speed,float rotation)
+{}
+
 class Move{
 public:
+	float Output;
+	float Output_Angle;
 	Move(Omni0 &Omni,EncoderUser &User);
+	float requestX,requestY;
 	int setup();
-	void cycle();
+	void request(float coordinateX,float coordinateY,float Angle);
+	void PD_control(float Present_value,float Target_value,float P_gain,float D_gain);
+	void lock();
 
-	void request(float coordinateX,float coodinateY,float Angle);
 	void stop();
 	int busy();
+	//float PD_control(float Present_value,float Target_value,float P_gain,D_gain);
+	void cycle(float Present_Angle,float Target_Angle,float P_gain_Angle,float D_gain_Angle);
 };
 
 Move::Move(Omni0 &Omni,EncoderUser &User)
 {}
 
+void Move::PD_control(float Present_value,float Target_value,float P_gain,float D_gain)
+{
+	float Deviation=0.0;
+	static float Deviation_Old=0.0;
+
+	Deviation = Target_value - Present_value;
+
+	Output = (P_gain*Deviation)+(D_gain*(Deviation - Deviation_Old));
+
+	Deviation_Old = Deviation;
+}
+
 int Move::setup()
 {}
 
-void Move::cycle()
+void Move::cycle(float Present_Angle,float Target_Angle,float P_gain_Angle,float D_gain_Angle)
 {
+	//EncoderUser encuser;
 
+	float Deviation_Angle;
+	static float Deviation_Angle_Old;
+
+	Deviation_Angle = Target_Angle - Present_Angle;
+
+	Output_Angle = (P_gain_Angle*Deviation_Angle)+(D_gain_Angle*(Deviation_Angle-Deviation_Angle_Old));
+
+	Deviation_Angle_Old=Deviation_Angle;
 }
 
-void Move::request(float coordinateX,float coodinateY,float Angle)
-{}
+void Move::request(float coordinateX,float coordinateY,float Angle)
+{
+	float coordinateXdash=0.0,coordinateYdash=0.0;
+	float differenceX=0.0,differenceY=0.0;
+	coordinateXdash=coordinateX*0.8;
+	differenceX=coordinateX-coordinateXdash;
+	requestX=differenceX*0.0025;
+	if (requestX>1.0)
+	{
+		requestX=1.0;
+	}
+
+	coordinateYdash=coordinateY*0.8;
+	differenceY=coordinateY-coordinateYdash;
+	requestY=differenceY*0.005;
+	if (requestY>1.0)
+	{
+		requestY=1.0;
+	}
+}
 
 void Move::stop()
 {}
@@ -231,9 +285,31 @@ void Move::stop()
 int Move::busy()
 {}
 
+void Move::lock()
+{}
+*/
 int main()
 {
-	int time;
+	int time=0;
+	float encoderMAX1=200;
+	float encoderMAX2=1000;
+	float diameter=30;
+	float long0=115;
+	float motor0X=0;
+	float motor0Y=0;
+	float motor1X=0;
+	float motor1Y=0;
+	float motor2X=0;
+	float motor2Y=0;
+	float machineX1=0;
+	float machineY1=0;
+	float machineX=0;
+	float machineY=0;
+	float encAction0=0,encAction1=0,encAction2=0;
+	float encActionOld0=0,encActionOld1=0,encActionOld2=0;
+	float encActionRemainder0=0,encActionRemainder1=0,encActionRemainder2=0;
+	float machineAngle=0;
+
 	//float enc0,enc1,enc2;
 
 
@@ -256,10 +332,10 @@ int main()
 	CanEncoder enc1(can , 1 , 5);
 	CanEncoder enc2(can , 2 , 5);
 
-	EncoderUser enc(enc0,enc1,enc2);
-	enc.setup();
+	//EncoderUser enc(enc0,enc1,enc2);
+	//enc.setup();
 
-	EncoderUser encuser(enc0,enc1,enc2);
+	//EncoderUser encuser(enc0,enc1,enc2);
 
 	CW0 cw0;
 	CW1 cw1;
@@ -275,13 +351,11 @@ int main()
 	MiniMD motor1(cw1,ccw1,pwm1);
 	MiniMD motor2(cw2,ccw2,pwm2);
 
-	Omni0 omni0(motor0,motor1,motor2);
+	motor0.setup();
+	motor1.setup();
+	motor2.setup();
 
-	Move move(omni0,encuser);
-	move.setup();
-
-	move.request(2000,0,0);
-
+	/*
 	encuser.encoderMAX1=200;
 	encuser.encoderMAX2=1000;
 	encuser.diameter=30;
@@ -317,25 +391,69 @@ int main()
 	encuser.encActionRemainder1=0;
 	encuser.encActionRemainder2=0;
 	encuser.machineAngle=0;
-	while (1){/*
-			motor0.duty(-1.0);
-			motor1.duty(1.0);
-			motor2.duty(0.0);
-			motor0.cycle();
-			motor1.cycle();
-			motor2.cycle();
-			encuser.cycle();*/
-			if (millis()-time>50)
-			 	{
-			 	    time=millis();
-			 	   if(!move.busy()) move.stop();
-			 	   move.cycle();
-			 	    encuser.cycle();
-			 	    //serial.printf("%d %d %d\n\r",enc0.count(),enc1.count(),enc2.count());
-			 		serial.printf("%f %f %f\n\r",encuser.machineX,encuser.machineY,encuser.machineAngle);
-		        }
 
+	Omni0 omni0(motor0,motor1,motor2);
+
+	Move move(omni0,encuser);
+	move.setup();
+	move.Output=0;
+	move.Output_Angle;
+
+	move.request(2000,0,0);
+	*/
+	while (1){
+		if (millis()-time>50)
+		{
+			time=millis();
+
+			encAction0=diameter*M_PI*enc0.count()/encoderMAX2;
+			encAction1=diameter*M_PI*enc1.count()/encoderMAX1;
+			encAction2=diameter*M_PI*enc2.count()/encoderMAX1;
+
+			encActionRemainder0=encAction0-encActionOld0;
+			encActionRemainder1=encAction1-encActionOld1;
+			encActionRemainder2=encAction2-encActionOld2;
+
+			encActionOld0=encAction0;
+			encActionOld1=encAction1;
+			encActionOld2=encAction2;
+
+			machineAngle=(encAction0+encAction1+encAction2)/3/long0;
+
+		    motor0X=(-1)*(encActionRemainder0-encActionRemainder1)/(2*sin(M_PI/3));//0番と1番の交点
+		    motor0Y=(-1)*(encActionRemainder0+encActionRemainder1)/(2*cos(M_PI/3));
+		    motor1X=(-1)*(encActionRemainder0+(encActionRemainder2*cos(M_PI/3)))/sin(M_PI/3);//0番と2番の交点
+		    motor1Y=encActionRemainder2;
+		    motor2X=(encActionRemainder1+(encActionRemainder2*cos(M_PI/3)))/sin(M_PI/3);//１番と2番の交点
+		    motor2Y=encActionRemainder2;
+
+		    machineX1=(motor0X+motor1X+motor2X)/3;//上記の3線のx座標の合計
+		    machineY1=(motor0Y+motor1Y+motor2Y)/3;//上記の3線のy座標の合計
+
+		    machineX+=machineX1*cos(machineAngle)-machineY1*sin(machineAngle);//5ミリ秒後の座標xと現在のx座標と足す
+		    machineY+=machineX1*sin(machineAngle)+machineY1*cos(machineAngle);//5ミリ秒後の座標yと現在のy座標を足す
+
+		    motor0.duty(0.0);
+		    motor1.duty(0.0);
+		    motor2.duty(0.0);
+		    motor0.cycle();
+		    motor1.cycle();
+		    motor2.cycle();
+
+		    if (machineX>1600)
+		    {
+
+		    }
+
+			/*if(!move.busy()) move.stop();
+			encuser.cycle();
+			move.cycle(encuser.machineAngle,0,1.0,1.0);
+			move.PD_control(0.0,0.0,0.0,0.0);
+			omni0.order(0.0,move.Output,move.Output_Angle);*/
+			//serial.printf("%d %d %d\n\r",enc0.count(),enc1.count(),enc2.count());
+			serial.printf("%f %f %f\n\r",machineX,machineY,machineAngle);
 		}
+	}
 	/*
     while (1)
     {
